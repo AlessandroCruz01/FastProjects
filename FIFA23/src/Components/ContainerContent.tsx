@@ -9,8 +9,6 @@ export function ContainerContent({children} : ContainerContentProps){
         <Container sx={{
             width: "95vw",
             height: "70vh",
-            border: "1px solid black",
-            borderRadius: "5px",
             display: "flex",
             justifyContent: 'center',
             flexDirection: "column",

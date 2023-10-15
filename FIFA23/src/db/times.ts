@@ -19,8 +19,14 @@ import roma from '../assets/times/AS_Roma_logo.svg'
 import porto from '../assets/times/porto.svg'
 import benfica from '../assets/times/benfica.svg'
 
+export interface timesProps {
+    id: number,
+    time_pais: string,
+    urlImg: string
+}
 
-export const times = [
+
+export const times: timesProps[] = [
     {"id": 1, "time_pais": "Real Madrid (Espanha)", "urlImg": realMadrid},
     {"id": 2, "time_pais": "FC Barcelona (Espanha)", "urlImg": barcelona},
     {"id": 3, "time_pais": "Bayern de Munique (Alemanha)", "urlImg": bayern},

@@ -1,58 +1,44 @@
 import { Button, Container } from "@mui/material";
 import { ContainerContent } from "./Components/ContainerContent";
 import logo from './assets/fifa.svg'
-import { players } from "./db/players";
+import { players, playersProps } from "./db/players";
+import { times, timesProps } from "./db/times";
 import { AvatarImg } from "./Components/AvatarImg";
-import { times } from "./db/times";
 import { useState } from "react";
 
-// Tipos
-type Player = {
-    Id: number;
-    Name: string;
-    img: string;
-    // Adicione outros campos conforme necessário
-};
-
-type Club = {
-    id: number;
-    time_pais: string;
-    urlImg: string;
-    // Adicione outros campos conforme necessário
-};
-
-const shuffleArray = (array: []) => {
+const shuffleArray = (array: (playersProps[] | timesProps[])) => {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        // Trocar os elementos array[i] e array[j]
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
 };
 
-const getRandomElements = (array: [], count: number) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getRandomElements = (array: any[], count: number) => {
     const shuffledArray = array.sort(() => Math.random() - 0.5);
     return shuffledArray.slice(0, count);
 };
 
 export default function App() {
-    const [clubes, setClubes] = useState(times)
-    const [gamers, setGamers] = useState(players)
+    const [clubes, setClubes] = useState<timesProps[]>(times)
+    const [gamers, setGamers] = useState<playersProps[]>(players)
     const [sorteou, setSorteou] = useState(false)
 
     const sorteia = () => {
         const shuffledPlayers = shuffleArray([...players]);
+        console.log('Players ' + shuffledPlayers)
         const randomGetPlayers = getRandomElements(shuffledPlayers, 4);
         setGamers(randomGetPlayers)
 
         const shuffledClubs = shuffleArray([...times]);
+        console.log('Times ' + shuffledClubs)
         const randomGetTimes = getRandomElements(shuffledClubs, 4);
         setClubes(randomGetTimes)
 
         setSorteou(true)
     }
     
-
   return (
     <Container sx={{
         width: "100vw",
@@ -72,7 +58,6 @@ export default function App() {
                 height: "3rem",
                 marginBottom: "2rem"
             }}/>
-
 
             <Container sx={{
                 display: "flex",
@@ -104,13 +89,7 @@ export default function App() {
             <Button disabled={sorteou} onClick={() => sorteia()} variant="contained" sx={{
                 marginTop: "3rem"
             }}>Sortear</Button>
-
-
         </Container>
-
-
-
-
     </Container>
   );
 }
